@@ -14,3 +14,10 @@ Here's a breakdown of the layers:
 2.nn.ReLU(): This is a Rectified Linear Unit activation function. It introduces non-linearity into the model by outputting the input directly if it's positive, otherwise it outputs zero. This helps the network learn complex patterns.
 
 3.nn.Linear(4, 1): This is another linear layer. It takes the output of the ReLU layer (which has 4 features) and produces a single output feature. This final layer often represents the model's prediction or classification.
+
+Next line code initializes two PyTorch tensors, X and y.
+
+1.X = torch.tensor([[0.,0.],[0.,1.],[1.,1.],[1.,0.]]): This line creates a 2D tensor named X. It represents the input features, with each inner list [a., b.] being a data point (or sample) and the a. and b. values being its features. In this case, there are four data points, each with two features.
+
+2.y = torch.tensor([[0.],[1.],[1.],[0.]]): This line creates another 2D tensor named y. It represents the target labels or outputs corresponding to the input data in X. Each inner list [c.] is the label for the respective data point in X. Here, there are four labels, each a single floating-point value.
+
