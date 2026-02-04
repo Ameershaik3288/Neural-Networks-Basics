@@ -1,48 +1,72 @@
-# Workshop
+Day 3 – Introduction to Neural Networks (PyTorch)
 
-Day3
-Introduction to Neural Networks
+This project is part of a workshop and explains the basics of neural networks using PyTorch.
+It shows how a simple neural network can learn patterns from data using training.
 
-First line of code creates a PyTorch tensor named X. A tensor is a fundamental data structure in PyTorch, similar to an array or matrix. In this case, X is a 2-dimensional tensor (a matrix) containing three rows and two columns, with the specified integer values.
+What is This Project About?
 
-Second Line code defines a neural network called model using PyTorch's nn.Sequential container. nn.Sequential stacks layers and passes the output of one layer as the input to the next.
+In this project, we train a small neural network to learn an XOR-like problem, which cannot be solved using simple linear rules.
+This helps beginners understand why neural networks are useful.
 
-Here's a breakdown of the layers:
+Key Concepts Used:
 
-1.nn.Linear(2, 4): This is a linear (or fully connected) layer. It takes an input of size 2 and produces an output of size 4. This is typically where features are transformed.
+👉PyTorch Tensors
+👉Neural Networks
+👉Forward Pass
+👉Loss Function
+👉Backpropagation
+👉Optimizer (Adam)
 
-2.nn.ReLU(): This is a Rectified Linear Unit activation function. It introduces non-linearity into the model by outputting the input directly if it's positive, otherwise it outputs zero. This helps the network learn complex patterns.
+Dataset Explanation
+Input (X)
 
-3.nn.Linear(4, 1): This is another linear layer. It takes the output of the ReLU layer (which has 4 features) and produces a single output feature. This final layer often represents the model's prediction or classification.
+Each row represents one data point with two features:
+[0, 0]
+[0, 1]
+[1, 1]
+[1, 0]
 
-Next line code initializes two PyTorch tensors, X and y.
+Output (y)
 
-1.X = torch.tensor([[0.,0.],[0.,1.],[1.,1.],[1.,0.]]): This line creates a 2D tensor named X. It represents the input features, with each inner list [a., b.] being a data point (or sample) and the a. and b. values being its features. In this case, there are four data points, each with two features.
+Each value is the expected result for the corresponding input:
+[0]
+[1]
+[1]
+[0]
 
-2.y = torch.tensor([[0.],[1.],[1.],[0.]]): This line creates another 2D tensor named y. It represents the target labels or outputs corresponding to the input data in X. Each inner list [c.] is the label for the respective data point in X. Here, there are four labels, each a single floating-point value.
+This pattern is called XOR, which requires a neural network to solve.
 
-Next code line performs a forward pass of the input tensor X through the trained neural network model. Essentially, it's asking the model to make predictions based on the X input data after it has been trained. The print() statement then displays these predictions, which in this case are the model's learned outputs for the XOR-like input patterns.
+Neural Network Structure :
 
-Nextcline This code block implements the training loop for the neural network. Let's break down each step:
+The model is created using nn.Sequential, which connects layers one after another.
+Input Layer (2 values)
+   ↓
+Linear Layer (2 → 4)
+   ↓
+ReLU Activation
+   ↓
+Linear Layer (4 → 1)
+   ↓
+Output
 
-👉for _ in range(1000): This line starts a loop that will run 1000 times. Each iteration of this loop is often referred to as an 'epoch' or a 'training step', where the model learns from the entire dataset.
+Layer Explanation :
+1.Linear (2 → 4): Converts input into 4 features
+2.ReLU: Adds non-linearity so the model can learn complex patterns
+3Linear (4 → 1): Produces the final output
 
-👉opt.zero_grad(): Before calculating new gradients, it's crucial to clear the old ones. This line sets the gradients of all parameters optimized by opt (our Adam optimizer) to zero. If you don't do this, gradients would accumulate from previous iterations.
+Training the Model:
+The model is trained for 1000 iterations.
+Each training step includes:
+👉Clearing old gradients
+👉Passing input through the model
+👉Calculating error using MSE Loss
+👉Updating weights using Adam Optimizer
 
-👉y_pred = model(X): This is the forward pass. Here, the input data X is passed through the neural network model to produce predictions, y_pred.
-loss = loss_fn(y_pred, y): This line calculates the loss. The loss_fn (which is nn.MSELoss() in your case) compares the model's predictions (y_pred) with the actual target values (y) and quantifies how 'wrong' the predictions are.
+This process helps the model improve step by step.
 
-👉loss.backward(): This is the backward pass. It computes the gradient of the loss with respect to every learnable parameter in the model. These gradients indicate how much each parameter needs to change to reduce the loss.
-
-👉opt.step(): This performs an optimization step. The optimizer (opt, which is Adam) uses the gradients computed during the backward pass to update the model's parameters (weights and biases), moving them slightly in the direction that minimizes the loss.
-
-Next line of code takes the input data X and passes it through the trained neural network model. This is known as a forward pass, where the model processes the input through all its layers to generate an output. The print() function then displays these outputs, which are the model's predictions for the given input data X.
-
-✅OUTPUT :
-        tensor([[ 0.0000e+00],
-        [ 1.0000e+00],
-        [ 1.0000e+00],
-        [-5.9605e-08]], grad_fn=<AddmmBackward0>)
-
-
-
+Final Output ✅
+After training, the model gives the following predictions:
+tensor([[ 0.0000],
+        [ 1.0000],
+        [ 1.0000],
+        [-0.0000]])
